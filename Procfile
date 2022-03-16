@@ -1,0 +1,1 @@
+web: gunicorn valhallapi.wsgi --log-file -
