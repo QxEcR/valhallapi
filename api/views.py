@@ -24,7 +24,10 @@ def getLeaderboardByGame(request, game):
     if not isgame(game):
         return Response(data=json.dumps({"message": "game not found"}), status=404)
 
-    ranks = Rank.objects.filter(game=game).order_by('rankOrdered')
+    ranks = Rank.objects.filter(game=game)\
+        .exclude(rank="NA")\
+        .order_by('rankOrdered')
+
     ranks = RankSerializer(ranks, many=True)
     return Response(ranks.data)
 
